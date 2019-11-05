@@ -241,7 +241,7 @@ int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM])
 	for (int x = 0; x < MAXXDIM; x++) {
 		for (int y = 0; y < MAXYDIM; y++) {
 			if (image[x][y] == 255 && image4[x][y] == 0) {
-				image3[x][y] = 255;
+				image3[x][y] = 255;	
 				do {
 					bit2 = bit;
 					bit = 0;
