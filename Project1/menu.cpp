@@ -11,5 +11,6 @@ void menu()
 	printf("f) Pixel zaehlen\n");
 	printf("g) Bilder oeffnen\n");
 	printf("h) Bilder schliessen\n");
+	printf("i) Grassfire Count\n");
 	printf("x) Schliessen\n");
 }

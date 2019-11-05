@@ -197,54 +197,76 @@ void closing(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXX
 
 void dilateCircleOnPoint(unsigned char image[MAXXDIM][MAXYDIM], int posX, int posY)
 {
+
 	image[posX][posY] = 255;
-	image[posX][posY+1] = 255;
-	image[posX+1][posY+1] = 255;
-	image[posX][posY-1] = 255;
-	image[posX-1][posY-1] = 255;
-	image[posX-1][posY+1] = 255;
-	image[posX+1][posY-1] = 255;
-	image[posX-1][posY] = 255;
-	image[posX][posY+1] = 255;
+	if (posY < MAXYDIM) { image[posX][posY + 1] = 255; }
+	if (posY - 1 < 0) { image[posX][posY - 1] = 255; }
+	//if (posX > 0)
+	//{
+/*		image[posX - 1][posY] = 255;
+		image[posX - 1][posY - 1] = 255;
+		image[posX - 1][posY + 1] = 255;
+	//}
+	//if (posX + 1 <= MAXXDIM)
+	//{
+		image[posX + 1][posY] = 255;
+		image[posX + 1][posY - 1] = 255;
+		image[posX + 1][posY + 1] = 255;
+	//}*/
+	
+}
+
+void addElementarRaute(unsigned char image[MAXXDIM][MAXYDIM], int posX, int posY)
+{
+	image[posX][posY] = 255;
+	image[posX + 1][posY] = 255;
+	image[posX][posY + 1] = 255;
+	image[posX][posY - 1] = 255;
+	image[posX - 1][posY] = 255;
 }
 
 int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM])
 {
-	unsigned char imageCopy[MAXXDIM][MAXYDIM];
-	unsigned char image1[MAXXDIM][MAXYDIM];
+	int counterObject = 0;
+	int bit = 0;
+	int bit2 = 0;
 	unsigned char image2[MAXXDIM][MAXYDIM];
-	int counter = 0;
-	int counter1 = 0;
-
-	emptyImage(image1);
+	unsigned char image3[MAXXDIM][MAXYDIM];
+	unsigned char image4[MAXXDIM][MAXYDIM];
 	emptyImage(image2);
-	emptyImage(imageCopy);
-	cpyImage(image, imageCopy);
+	emptyImage(image3);
+	emptyImage(image4);
 	
 
-	for (int x = 0; x < MAXXDIM; x++)
-	{
-		for (int y = 0; y < MAXYDIM; y++)
-		{
-			if (imageCopy[x][y] == 0)
-			{
-				dilateCircleOnPoint(image1, x, y);
-				for (int i = 0; i < MAXXDIM; i++)
-					for (int j = 0; j < MAXYDIM; j++)
-					{
-						if (count_pix(image1) != counter1)
-						{
-							counter1 = count_pix(image1);
-							image2[i][j] = imageCopy && image1;
-							dilateCircleOnPoint(image1, i + 1, j);
+	for (int x = 0; x < MAXXDIM; x++) {
+		for (int y = 0; y < MAXYDIM; y++) {
+			if (image[x][y] == 255 && image4[x][y] == 0) {
+				image3[x][y] = 255;
+				do {
+					bit2 = bit;
+					bit = 0;
+					emptyImage(image2);
+					for (int i = 0; i < MAXXDIM; i++)
+						for (int j = 0; j < MAXYDIM; j++)
+							if (image3[i][j] == 255)
+								addElementarRaute(image2, i, j);
+
+					for (int d = 0; d < MAXXDIM; d++) {
+						for (int e = 0; e < MAXXDIM; e++) {
+							if (image2[d][e] == 255 && image[d][e] == 255) {
+								image3[d][e] = 255;
+								bit++;
+							}
+							else {
+								image3[d][e] = 0;
+							}
 						}
-						else
-							counter++;
 					}
-						
+					cpyImage(image3, image4);
+				} while (bit != bit2);
+				counterObject++;
 			}
 		}
 	}
-
-	return counter;
+	return counterObject;
 }

@@ -10,3 +10,4 @@ int count_pix(unsigned char image[MAXXDIM][MAXYDIM]);
 void opening(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int anzahl);
 void closing(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int anzahl);
 void mergeImage(unsigned char image1[MAXXDIM][MAXYDIM], unsigned char image2[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
+int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM]);

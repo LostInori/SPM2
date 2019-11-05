@@ -55,6 +55,11 @@ int main()
 			scanf("%i", &anzahl);
 			closing(bild, ausgabebild, anzahl);
 			writeImage_ppm(ausgabebild, 256, 256);
+			break;
+		case 'I':
+			printf("Es befinden sich %i Objekte aufm Bild." , grassfireCount(bild));
+			getchar();
+			break;
 		default:
 			break;
 		}
