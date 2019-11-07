@@ -297,16 +297,14 @@ void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_ne
 			highestValue = histogram[i];
 
 	for (int i = 0; i < 256; i++)
-		histogram[i] = (histogram[i] * 256) / highestValue;
+		histogram[i] = (int)(((float)histogram[i] * 256.0) / (float)highestValue);
 
-	for (int x = 255; x >= 0; x--)
-		for (int y = 255; y >= 0; y--)
+	for (int x = 0; x < 256; x++)
+		for (int y = 255; y > histogram[x]; y--)
 		{
-			//if (histogram[y] == i)
-			if (histogram[x] <= y)
-				image_new[x][y] = 256;
+				image_new[y][x] = 255;
 		}
 
-	printf("%i", highestValue);
+	//printf("%i", highestValue);
 
 }
