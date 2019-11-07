@@ -270,3 +270,43 @@ int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM])
 	}
 	return counterObject;
 }
+
+
+
+void fkt_histogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned int histogram[256])
+{
+	for (int i = 0; i < 256; i++)
+		histogram[i] = 0;
+
+	for (int x = 0; x < MAXXDIM; x++)
+		for (int y = 0; y < MAXYDIM; y++)
+			histogram[image[x][y]]++;
+}
+
+void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
+{
+	unsigned int histogram[256];
+	//unsigned char image_new[MAXXDIM][MAXYDIM];
+	int highestValue = 0;
+
+	emptyImage(image_new);
+	fkt_histogram(image, histogram);
+
+	for (int i = 0; i < 256; i++)
+		if (histogram[i] > highestValue)
+			highestValue = histogram[i];
+
+	for (int i = 0; i < 256; i++)
+		histogram[i] = (histogram[i] * 256) / highestValue;
+
+	for (int x = 255; x >= 0; x--)
+		for (int y = 255; y >= 0; y--)
+		{
+			//if (histogram[y] == i)
+			if (histogram[x] <= y)
+				image_new[x][y] = 256;
+		}
+
+	printf("%i", highestValue);
+
+}

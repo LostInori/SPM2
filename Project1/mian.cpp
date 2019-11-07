@@ -60,6 +60,11 @@ int main()
 			printf("Es befinden sich %i Objekte aufm Bild." , grassfireCount(bild));
 			getchar();
 			break;
+		case 'J':
+			drawHistogram(bild, ausgabebild);
+			writeImage_ppm(ausgabebild, 256, 256);
+			getchar();
+			break;
 		default:
 			break;
 		}

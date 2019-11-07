@@ -12,5 +12,6 @@ void menu()
 	printf("g) Bilder oeffnen\n");
 	printf("h) Bilder schliessen\n");
 	printf("i) Grassfire Count\n");
+	printf("j) Histogramm\n");
 	printf("x) Schliessen\n");
 }
