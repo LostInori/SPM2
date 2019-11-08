@@ -12,3 +12,4 @@ void closing(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXX
 void mergeImage(unsigned char image1[MAXXDIM][MAXYDIM], unsigned char image2[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
 int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM]);
 void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
+void drawHistogram2(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);

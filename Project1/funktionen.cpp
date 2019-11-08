@@ -308,3 +308,11 @@ void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_ne
 	//printf("%i", highestValue);
 
 }
+
+void drawHistogram2(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
+{
+	emptyImage(image_new);
+	for (int x = 0; x < 50; x++)
+		for (int y = 0; y < 100; y++)
+			image_new[x][y] = 255;
+}
