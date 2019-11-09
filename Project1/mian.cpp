@@ -61,7 +61,7 @@ int main()
 			getchar();
 			break;
 		case 'J':
-			drawHistogram2(bild, ausgabebild);
+			drawHistogram(bild, ausgabebild);
 			writeImage_ppm(ausgabebild, 256, 256);
 			break;
 		default:

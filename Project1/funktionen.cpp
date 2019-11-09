@@ -286,33 +286,22 @@ void fkt_histogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned int histogram
 void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
 {
 	unsigned int histogram[256];
-	//unsigned char image_new[MAXXDIM][MAXYDIM];
 	int highestValue = 0;
 
 	emptyImage(image_new);
 	fkt_histogram(image, histogram);
 
+	//Maximalwert an Pixeln ermitteln
 	for (int i = 0; i < 256; i++)
 		if (histogram[i] > highestValue)
 			highestValue = histogram[i];
 
+	//Normieren der Menge an Punkten
 	for (int i = 0; i < 256; i++)
 		histogram[i] = (int)(((float)histogram[i] * 256.0) / (float)highestValue);
 
-	for (int x = 0; x < 256; x++)
-		for (int y = 255; y > histogram[x]; y--)
-		{
-				image_new[y][x] = 255;
-		}
-
-	//printf("%i", highestValue);
-
-}
-
-void drawHistogram2(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
-{
-	emptyImage(image_new);
-	for (int x = 0; x < 50; x++)
-		for (int y = 0; y < 100; y++)
+	//Bild zeichnen
+	for (int y = 0; y < 256; y++)
+		for (int x = 255; x > (255-histogram[y]); x--)
 			image_new[x][y] = 255;
 }
