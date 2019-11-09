@@ -305,3 +305,39 @@ void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_ne
 		for (int x = 255; x > (255-histogram[y]); x--)
 			image_new[x][y] = 255;
 }
+
+void stretchingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
+{
+	unsigned int histogram[256];
+	//int counter = 0;
+	int highestValue = 0;
+	int maxValue = 0;
+	int minValue = 0;
+	int k = 0;
+	int lowestValue = 255;
+	fkt_histogram(image, histogram);
+	emptyImage(image_new);
+
+	for (int i = 0; i < 256; i++)
+	{
+		if (histogram[i] > highestValue)
+			highestValue = histogram[i];
+		if ((histogram[i] < lowestValue) && (histogram[i] != 0) && (lowestValue == 255))
+			lowestValue = histogram[i];
+	}
+
+	for (int i = 0; i < 256; i++)
+	{
+		if (histogram[i] == highestValue)
+			maxValue = i;
+		if (histogram[i] == lowestValue)
+			minValue = i;
+	}
+
+	//counter = (int)(256.0 / (float)counter);
+
+	for (int x = 0; x < MAXXDIM; x++)
+		for (int y = 0; y < MAXYDIM; y++)
+			image_new[x][y] = (int)(255.0 *((float)(image[x][y] - minValue) / (float)(maxValue - minValue)));
+		
+}
