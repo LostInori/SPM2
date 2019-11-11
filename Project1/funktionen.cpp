@@ -334,10 +334,47 @@ void stretchingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char im
 			minValue = i;
 	}
 
-	//counter = (int)(256.0 / (float)counter);
-
 	for (int x = 0; x < MAXXDIM; x++)
 		for (int y = 0; y < MAXYDIM; y++)
 			image_new[x][y] = (int)(255.0 *((float)(image[x][y] - minValue) / (float)(maxValue - minValue)));
 		
+}
+
+void smoothingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int grayValues)
+{
+	unsigned int grayValSet = 0;
+	float valuesPerGray = 0;
+	float histoVal = 0;
+	float histoValWrite = 0;
+
+	//Falls mehr Grauwerte gewünscht sind, als maximal möglich -> 256
+	if (grayValues > 256)
+		grayValues = 256;
+
+	//Berechnungen
+	valuesPerGray = ((float)(MAXXDIM * MAXYDIM) / (float)grayValues);
+	histoVal = 256.0 / (float)grayValues;
+	
+	//Bild neu erzeugen
+	for (int i = 0; i < 256; i++)
+		for (int x = 0; x < MAXXDIM; x++)
+			for (int y = 0; y < MAXYDIM; y++)
+			{
+				if (image[x][y] == i && histoValWrite < valuesPerGray)
+				{
+					image_new[x][y] = (int)(histoVal * (float)grayValSet);
+					histoValWrite++;
+				}
+
+				if (histoValWrite == valuesPerGray)
+				{
+					grayValSet++;
+					histoValWrite = 0;
+				}
+
+			}
+	
+
+
+
 }

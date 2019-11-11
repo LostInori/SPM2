@@ -14,5 +14,6 @@ void menu()
 	printf("i) Grassfire Count\n");
 	printf("j) Histogramm\n");
 	printf("k) Histogramm dehnen\n");
+	printf("l) Histogramm glätten\n");
 	printf("x) Schliessen\n");
 }

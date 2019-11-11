@@ -13,3 +13,4 @@ void mergeImage(unsigned char image1[MAXXDIM][MAXYDIM], unsigned char image2[MAX
 int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM]);
 void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
 void stretchingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
+void smoothingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int grayValues);

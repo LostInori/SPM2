@@ -78,6 +78,12 @@ int main()
 			drawHistogram(bild, ausgabebild);
 			writeImage_ppm(ausgabebild, 256, 256);
 			break;
+		case 'L': //Histogramm zeichnen
+			printf("Wie viele Graustufen soll es geben: ");
+			scanf("%i", &anzahl);
+			smoothingHistogram(bild, ausgabebild, anzahl);
+			writeImage_ppm(ausgabebild, 256, 256);
+			break;
 		default:
 			break;
 		}
