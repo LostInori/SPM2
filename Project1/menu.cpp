@@ -15,5 +15,16 @@ void menu()
 	printf("j) Histogramm\n");
 	printf("k) Histogramm dehnen\n");
 	printf("l) Histogramm glätten\n");
+	printf("m) Kanten dedektion\n");
+	printf("x) Schliessen\n");
+}
+
+//Menü Kantendedektion
+void menu_derivation()
+{
+	printf("a) Soebel: X\n");
+	printf("b) Soebel: Y\n");
+	printf("c) Soebel: XY\n");
+	printf("d) 2. Ableitung\n");
 	printf("x) Schliessen\n");
 }

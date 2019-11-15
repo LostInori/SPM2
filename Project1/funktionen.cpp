@@ -4,6 +4,13 @@
 
 unsigned char image[MAXXDIM][MAXYDIM];
 
+void set_image(unsigned char image[MAXXDIM][MAXYDIM], unsigned int value)
+{
+	for (int x = 0; x < MAXXDIM; x++)
+		for (int y = 0; y < MAXXDIM; y++)
+			image[x][y] = value;
+}
+
 void emptyImage(unsigned char image[MAXXDIM][MAXYDIM])
 {
 	for (int x = 0; x < MAXXDIM; x++)
@@ -145,8 +152,6 @@ void opening(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXX
 	unsigned char imageCopy[MAXXDIM][MAXYDIM];
 	unsigned char image2[MAXXDIM][MAXYDIM];
 	unsigned char image3[MAXXDIM][MAXYDIM];
-//	int k = 0;
-
 
 	emptyImage(image_new);
 	emptyImage(image2);
@@ -271,8 +276,6 @@ int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM])
 	return counterObject;
 }
 
-
-
 void fkt_histogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned int histogram[256])
 {
 	for (int i = 0; i < 256; i++)
@@ -377,4 +380,65 @@ void smoothingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char ima
 
 
 
+}
+
+/*
+typ:	1: 1. Ableitung X
+		2: 1. Ableitung Y
+		3: 1. Ableitung XY
+		4: 2. Ableitung
+*/
+void derivation(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ)
+{
+	int vx, vy = 0;
+	double xy = 0;
+
+	switch (typ)
+	{
+	case 1: // 1. Ableitung X
+		for (int x = 1; x < MAXXDIM - 1; x++)
+			for (int y = 1; y < MAXYDIM - 1; y++)
+				if ((2 * image[x][y - 1] + image[x + 1][y - 1] + image[x - 1][y - 1]) - (2 * image[x][y + 1] + image[x + 1][y + 1] + image[x - 1][y + 1]) != 0)
+					image_new[x][y] = 255;
+	break;
+	case 2: // 1. Ableitung Y
+		for (int x = 1; x < MAXXDIM - 1; x++)
+			for (int y = 1; y < MAXYDIM - 1; y++)
+				if ((2 * image[x - 1][y] + image[x - 1][y + 1] + image[x - 1][y - 1]) - (2 * image[x + 1][y] + image[x + 1][y + 1] + image[x + 1][y - 1]) != 0)
+					image_new[x][y] = 255;
+	break;
+	case 3: // 1. Ableitung XY
+
+		for (int x = 1; x < MAXXDIM - 1; x++)
+			for (int y = 1; y < MAXYDIM - 1; y++)
+			{
+				vx = (2 * image[x][y - 1] + image[x + 1][y - 1] + image[x - 1][y - 1]) - (2 * image[x][y + 1] + image[x + 1][y + 1] + image[x - 1][y + 1]);
+				vy = (2 * image[x - 1][y] + image[x - 1][y + 1] + image[x - 1][y - 1]) - (2 * image[x + 1][y] + image[x + 1][y + 1] + image[x + 1][y - 1]);
+				xy = sqrt((vx*vx) + (vy*vy));
+
+				if (xy > 0)
+					image_new[x][y] = 255;
+			}
+	break;
+	case 4: // 2. Ableitung
+		set_image(image_new, 127);
+
+		for (int x = 1; x < MAXXDIM - 1; x++) {
+			for (int y = 1; y < MAXYDIM - 1; y++) {
+
+				if ((image[x - 1][y] + image[x + 1][y] + image[x][y - 1] + image[x][y + 1] - 4 * image[x][y]) > 0)
+				{
+					image_new[x][y] = 255;
+				}
+				else if ((image[x - 1][y] + image[x + 1][y] + image[x][y - 1] + image[x][y + 1] - 4 * image[x][y]) < 0)
+				{
+					image_new[x][y] = 0;
+				}
+			}
+		}
+	break;
+
+	default:
+		break;
+	}
 }

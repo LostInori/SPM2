@@ -1,4 +1,5 @@
 #include "image-io.h"
+#include <math.h>
 
 #pragma once
 int readImage();
@@ -14,3 +15,4 @@ int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM]);
 void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
 void stretchingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
 void smoothingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int grayValues);
+void derivation(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ);

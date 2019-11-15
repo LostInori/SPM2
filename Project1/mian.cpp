@@ -84,6 +84,36 @@ int main()
 			smoothingHistogram(bild, ausgabebild, anzahl);
 			writeImage_ppm(ausgabebild, 256, 256);
 			break;
+		case 'M': //Histogramm zeichnen
+			system("cls");
+			getchar();
+			menu_derivation();
+			eingabe = getchar();
+			eingabe = toupper(eingabe);
+			switch (eingabe)
+			{
+				case 'A':
+					derivation(bild, ausgabebild, 1);
+					writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+				break;
+				case 'B':
+					derivation(bild, ausgabebild, 2);
+					writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+				break;
+				case 'C':
+					derivation(bild, ausgabebild, 3);
+					writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+				break;
+				case 'D':
+					derivation(bild, ausgabebild, 4);
+					writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+				break;
+			default:
+				if (eingabe != 'X')
+					printf("Falsche Eingabe");
+				break;
+			}
+			break;
 		default:
 			break;
 		}
