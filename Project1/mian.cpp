@@ -84,7 +84,7 @@ int main()
 			smoothingHistogram(bild, ausgabebild, anzahl);
 			writeImage_ppm(ausgabebild, 256, 256);
 			break;
-		case 'M': //Histogramm zeichnen
+		case 'M': //Derivation
 			system("cls");
 			getchar();
 			menu_derivation();
@@ -114,6 +114,26 @@ int main()
 				break;
 			}
 			break;
+		case 'N':
+			printf("Mit welchem Faktor soll der Mittelpunkt gewichtet werden?: ");
+			scanf("%i", &anzahl);
+			mittelwertfilter(bild, ausgabebild, 1, anzahl);
+			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+		break;
+		case 'O':
+			printf("Mit welchem Faktor soll der Mittelpunkt gewichtet werden?: ");
+			scanf("%i", &anzahl);
+			mittelwertfilter(bild, ausgabebild, 2, anzahl);
+			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+		break;
+		case 'P':
+			medianfilter(bild, ausgabebild, 1);
+			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+		break;
+		case 'Q':
+			medianfilter(bild, ausgabebild, 2);
+			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+		break;
 		default:
 			break;
 		}

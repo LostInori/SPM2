@@ -25,6 +25,22 @@ void cpyImage(unsigned char original[MAXXDIM][MAXYDIM], unsigned char kopie[MAXX
 			kopie[x][y] = original[x][y];
 }
 
+void bubbleSort(int *eingangswerte, int length)
+{
+	int tmp = 0;
+
+	for (int i = 1; i < length; i++)
+		for (int j = 0; j < length - i; j++)
+		{
+			if (eingangswerte[j] > eingangswerte[j + 1])
+			{
+				tmp = eingangswerte[j];
+				eingangswerte[j] = eingangswerte[j + 1];
+				eingangswerte[j + 1] = tmp;
+			}
+		}
+}
+
 void showImage()
 {
 	viewImage_ppm();
@@ -441,4 +457,97 @@ void derivation(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[M
 	default:
 		break;
 	}
+}
+
+/*
+typ:	1: Mittelwert 3x3
+		2: Mittelwert 7x7
+gewichtung: Gewichtungsfaktor für Mittelpunkt
+*/
+void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ, unsigned int gewichtung)
+{
+	int mittelwert = 0;
+
+	set_image(image_new, 127);
+
+	switch (typ)
+	{
+	case 1:
+		for (int x = 1; x < MAXXDIM-1; x++)
+			for (int y = 1; y < MAXYDIM-1; y++)
+			{
+				mittelwert = 0;
+				for (int n = 0; n < 3; n++)
+					for (int i = 0; i < 3; i++)
+						mittelwert += image[x-n-1][y-i-1];
+				mittelwert += image[x][y] * (gewichtung - 1);
+				image_new[x][y] = mittelwert / 9;
+			}
+	break;
+	case 2:
+		for (int x = 3; x < MAXXDIM - 3; x++)
+			for (int y = 3; y < MAXYDIM - 3; y++)
+			{
+				mittelwert = 0;
+				for (int n = 0; n < 7; n++)
+					for (int i = 0; i < 7; i++)
+						mittelwert += image[x - n - 1][y - i - 1];
+				mittelwert += image[x][y] * (gewichtung - 1);
+				image_new[x][y] = mittelwert / 49;
+			}
+	break;
+	default:
+		break;
+	}
+}
+
+
+/*
+typ:	1: Medianfilter 3x3
+		2: Medianfilter 9x9
+*/
+void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ)
+{
+	int werte[81];
+	int cnt_werte = 0;
+
+	set_image(image_new, 127);
+
+	switch (typ)
+	{
+	case 1: //Medianfilter 3x3
+		for (int x = 1; x < MAXXDIM - 1; x++)
+			for (int y = 1; y < MAXYDIM - 1; y++)
+			{
+				cnt_werte = 0;
+				for (int n = 0; n < 3; n++)
+					for (int i = 0; i < 3; i++)
+					{
+						werte[cnt_werte] = image[x - n - 1][y - i - 1];
+						cnt_werte++;
+					}
+				bubbleSort(werte, cnt_werte);
+				image_new[x][y] = werte[4];
+			}
+
+	break;
+	case 2: //Medianfilter 9x9
+		for (int x = 4; x < MAXXDIM - 4; x++)
+			for (int y = 4; y < MAXYDIM - 4; y++)
+			{
+				cnt_werte = 0;
+				for (int n = 0; n < 9; n++)
+					for (int i = 0; i < 9; i++)
+					{
+						werte[cnt_werte] = image[x - n - 1][y - i - 1];
+						cnt_werte++;
+					}
+				bubbleSort(werte, cnt_werte);
+				image_new[x][y] = werte[40];
+			}
+	break;
+	default:
+		break;
+	}
+
 }

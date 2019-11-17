@@ -15,4 +15,24 @@ int grassfireCount(unsigned char image[MAXXDIM][MAXYDIM]);
 void drawHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
 void stretchingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
 void smoothingHistogram(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int grayValues);
+
+/*
+typ:	1: 1. Ableitung X
+		2: 1. Ableitung Y
+		3: 1. Ableitung XY
+		4: 2. Ableitung
+*/
 void derivation(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ);
+
+/*
+typ:	1: Mittelwert 3x3
+		2: Mittelwert 7x7
+gewichtung: Gewichtungsfaktor für Mittelpunkt
+*/
+void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ, unsigned int gewichtung);
+
+/*
+typ:	1: Medianfilter 3x3
+		2: Medianfilter 9x9
+*/
+void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ);
