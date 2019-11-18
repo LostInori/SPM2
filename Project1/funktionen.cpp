@@ -464,7 +464,7 @@ typ:	1: Mittelwert 3x3
 		2: Mittelwert 7x7
 gewichtung: Gewichtungsfaktor für Mittelpunkt
 */
-void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ, unsigned int gewichtung)
+/*void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ, unsigned int gewichtung)
 {
 	int mittelwert = 0;
 
@@ -499,8 +499,27 @@ void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image
 	default:
 		break;
 	}
-}
+}//*/
 
+void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroese, unsigned int gewichtung)
+{
+	int mittelwert = 0;
+	int filter2 = filtergroese / 2;
+
+	set_image(image_new, 127);
+
+	
+	for (int x = filter2; x < MAXXDIM - filter2; x++)
+		for (int y = filter2; y < MAXYDIM - filter2; y++)
+		{
+			mittelwert = 0;
+			for (int n = 0; n < filtergroese; n++)
+				for (int i = 0; i < filtergroese; i++)
+					mittelwert += image[x - n - 1][y - i - 1];
+			mittelwert += image[x][y] * (gewichtung - 1);
+			image_new[x][y] = mittelwert / (filtergroese * filtergroese);
+		}
+}
 
 /*
 typ:	1: Medianfilter 3x3
@@ -552,24 +571,24 @@ typ:	1: Medianfilter 3x3
 
 }//*/
 
-void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroeße)
+void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroese)
 {
 	int werte[121];
 	int cnt_werte = 0;
-	int filter2 = filtergroeße / 2;
+	int filter2 = filtergroese / 2;
 	set_image(image_new, 127);
 
 		for (int x = filter2; x < MAXXDIM - filter2; x++)
 			for (int y = filter2; y < MAXYDIM - filter2; y++)
 			{
 				cnt_werte = 0;
-				for (int n = 0; n < filtergroeße; n++)
-					for (int i = 0; i < filtergroeße; i++)
+				for (int n = 0; n < filtergroese; n++)
+					for (int i = 0; i < filtergroese; i++)
 					{
 						werte[cnt_werte] = image[x - n - 1][y - i - 1];
 						cnt_werte++;
 					}
 				bubbleSort(werte, cnt_werte);
-				image_new[x][y] = werte[filtergroeße*filtergroeße/2];
+				image_new[x][y] = werte[filtergroese*filtergroese/2];
 			}
 }

@@ -16,9 +16,8 @@ void menu()
 	printf("k) Histogramm dehnen\n");
 	printf("l) Histogramm glätten\n");
 	printf("m) Kanten dedektion\n");
-	printf("n) Mittelwert 3x3\n");
-	printf("o) Mittelwert 7x7\n");
-	printf("p) Medianfilter\n");
+	printf("n) Mittelwert\n");
+	printf("o) Medianfilter\n");
 	printf("x) Schliessen\n");
 }
 

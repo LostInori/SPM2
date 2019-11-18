@@ -13,6 +13,7 @@ int main()
 	unsigned char ausgabebild[MAXXDIM][MAXYDIM];
 	int rueckgabe = 1;
 	int anzahl = 0;
+	int anzahl2 = 0;
 	
 
 
@@ -115,18 +116,22 @@ int main()
 			}
 			break;
 		case 'N':
-			printf("Mit welchem Faktor soll der Mittelpunkt gewichtet werden?: ");
+			printf("Filtergroeße (ungerade): ");
+			scanf("%i", &anzahl2);
+			printf("\nMit welchem Faktor soll der Mittelpunkt gewichtet werden?: ");
 			scanf("%i", &anzahl);
-			mittelwertfilter(bild, ausgabebild, 1, anzahl);
-			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+			if ((anzahl % 2) > 0 && anzahl >= 3)
+			{
+				mittelwertfilter(bild, ausgabebild, anzahl2, anzahl);
+				writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+			}
+			else
+			{
+				printf("Die Filtergroesse muss ungerade sein und groesser als 3.\n");
+				getchar();
+			}
 		break;
 		case 'O':
-			printf("Mit welchem Faktor soll der Mittelpunkt gewichtet werden?: ");
-			scanf("%i", &anzahl);
-			mittelwertfilter(bild, ausgabebild, 2, anzahl);
-			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
-		break;
-		case 'P':
 			printf("Filtergroeße (ungerade): ");
 			scanf("%i", &anzahl);
 			if ((anzahl % 2) > 0 && anzahl >= 3 && anzahl <=11)
