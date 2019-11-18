@@ -506,7 +506,7 @@ void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image
 typ:	1: Medianfilter 3x3
 		2: Medianfilter 9x9
 */
-void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ)
+/*void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ)
 {
 	int werte[81];
 	int cnt_werte = 0;
@@ -550,4 +550,26 @@ void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new
 		break;
 	}
 
+}//*/
+
+void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroeﬂe)
+{
+	int werte[121];
+	int cnt_werte = 0;
+	int filter2 = filtergroeﬂe / 2;
+	set_image(image_new, 127);
+
+		for (int x = filter2; x < MAXXDIM - filter2; x++)
+			for (int y = filter2; y < MAXYDIM - filter2; y++)
+			{
+				cnt_werte = 0;
+				for (int n = 0; n < filtergroeﬂe; n++)
+					for (int i = 0; i < filtergroeﬂe; i++)
+					{
+						werte[cnt_werte] = image[x - n - 1][y - i - 1];
+						cnt_werte++;
+					}
+				bubbleSort(werte, cnt_werte);
+				image_new[x][y] = werte[filtergroeﬂe*filtergroeﬂe/2];
+			}
 }

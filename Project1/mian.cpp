@@ -127,13 +127,19 @@ int main()
 			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
 		break;
 		case 'P':
-			medianfilter(bild, ausgabebild, 1);
-			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
-		break;
-		case 'Q':
-			medianfilter(bild, ausgabebild, 2);
-			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
-		break;
+			printf("Filtergroeße (ungerade): ");
+			scanf("%i", &anzahl);
+			if ((anzahl % 2) > 0 && anzahl >= 3 && anzahl <=11)
+			{
+				medianfilter(bild, ausgabebild, anzahl);
+				writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+			}
+			else
+			{
+				printf("Die Filtergroesse muss ungerade sein und groesser als 3.\n");
+				getchar();
+			}
+			break;
 		default:
 			break;
 		}

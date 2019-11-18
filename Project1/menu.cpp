@@ -18,8 +18,7 @@ void menu()
 	printf("m) Kanten dedektion\n");
 	printf("n) Mittelwert 3x3\n");
 	printf("o) Mittelwert 7x7\n");
-	printf("p) Medianfilter 3x3\n");
-	printf("q) Medianfilter 9x9\n");
+	printf("p) Medianfilter\n");
 	printf("x) Schliessen\n");
 }
 

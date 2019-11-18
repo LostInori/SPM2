@@ -35,4 +35,5 @@ void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image
 typ:	1: Medianfilter 3x3
 		2: Medianfilter 9x9
 */
-void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ);
+//void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ);
+void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroeﬂe);
