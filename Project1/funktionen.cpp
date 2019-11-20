@@ -516,8 +516,8 @@ void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image
 			for (int n = 0; n < filtergroese; n++)
 				for (int i = 0; i < filtergroese; i++)
 					mittelwert += image[x - n - 1][y - i - 1];
-			mittelwert += image[x][y] * (gewichtung - 1);
-			image_new[x][y] = mittelwert / (filtergroese * filtergroese);
+			mittelwert += image[x][y] * (gewichtung -1);
+			image_new[x][y] = mittelwert / ((filtergroese * filtergroese)+(gewichtung-1));
 		}
 }
 

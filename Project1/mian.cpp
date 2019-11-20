@@ -115,12 +115,12 @@ int main()
 				break;
 			}
 			break;
-		case 'N':
+		case 'N': //Mittelwert
 			printf("Filtergroeße (ungerade): ");
 			scanf("%i", &anzahl2);
 			printf("\nMit welchem Faktor soll der Mittelpunkt gewichtet werden?: ");
 			scanf("%i", &anzahl);
-			if ((anzahl % 2) > 0 && anzahl >= 3)
+			if ((anzahl2 % 2) > 0 && anzahl2 >= 3)
 			{
 				mittelwertfilter(bild, ausgabebild, anzahl2, anzahl);
 				writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
