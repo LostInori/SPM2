@@ -131,7 +131,7 @@ int main()
 				getchar();
 			}
 		break;
-		case 'O':
+		case 'O': //Medianfilter
 			printf("Filtergroeße (ungerade): ");
 			scanf("%i", &anzahl);
 			if ((anzahl % 2) > 0 && anzahl >= 3 && anzahl <=11)
@@ -142,6 +142,24 @@ int main()
 			else
 			{
 				printf("Die Filtergroesse muss ungerade sein und groesser als 3.\n");
+				getchar();
+			}
+			break;
+		case 'P': //Laws Filter
+			lawsfilter(bild, ausgabebild);
+			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+			break;
+		case 'Q': //DOG-Operator
+			printf("n: ");
+			scanf("%i", &anzahl);
+			if ((anzahl % 2) == 0 && anzahl <= 100)
+			{
+				DoG(bild, ausgabebild, anzahl);
+				writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+			}
+			else
+			{
+				printf("Der Wert 'n' entspricht den Erwartungen.");
 				getchar();
 			}
 			break;

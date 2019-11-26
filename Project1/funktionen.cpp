@@ -592,3 +592,191 @@ void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new
 				image_new[x][y] = werte[filtergroese*filtergroese/2];
 			}
 }
+
+void lawsfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
+{
+	int L3L3, L3E3, L3S3, E3L3, E3E3, E3S3, S3L3, S3E3, S3S3;
+	double ergebnis;
+
+	emptyImage(image_new);
+
+	for (int x = 1; x < MAXXDIM - 1; x++) {
+		for (int y = 1; y < MAXYDIM - 1; y++) {
+
+			L3L3 = (1 * image[x - 1][y - 1] + 2 * image[x - 1][y] + 1 * image[x + 1][y] + 2 * image[x][y - 1] + 4 * image[x][y] + 2 * image[x][y + 1] + 1 * image[x + 1][y - 1] + 2 * image[x + 1][y] + 1 * image[x + 1][y + 1]) / 16;
+			L3E3 = (-1 * image[x - 1][y - 1] + 0 * image[x - 1][y] + 1 * image[x + 1][y] - 2 * image[x][y - 1] + 0 * image[x][y] + 2 * image[x][y + 1] - 1 * image[x + 1][y - 1] + 0 * image[x + 1][y] + 1 * image[x + 1][y + 1]);
+			L3S3 = (-1 * image[x - 1][y - 1] + 2 * image[x - 1][y] - 1 * image[x + 1][y] - 2 * image[x][y - 1] + 4 * image[x][y] - 2 * image[x][y + 1] - 1 * image[x + 1][y - 1] + 2 * image[x + 1][y] - 1 * image[x + 1][y + 1]);
+			E3L3 = (-1 * image[x - 1][y - 1] - 2 * image[x - 1][y] - 1 * image[x + 1][y] + 0 * image[x][y - 1] + 0 * image[x][y] + 0 * image[x][y + 1] + 1 * image[x + 1][y - 1] + 2 * image[x + 1][y] + 1 * image[x + 1][y + 1]);
+			E3E3 = (1 * image[x - 1][y - 1] + 0 * image[x - 1][y] - 1 * image[x + 1][y] + 0 * image[x][y - 1] + 0 * image[x][y] + 0 * image[x][y + 1] - 1 * image[x + 1][y - 1] + 0 * image[x + 1][y] + 1 * image[x + 1][y + 1]);
+			E3S3 = (1 * image[x - 1][y - 1] - 2 * image[x - 1][y] + 1 * image[x + 1][y] + 0 * image[x][y - 1] + 0 * image[x][y] + 0 * image[x][y + 1] - 1 * image[x + 1][y - 1] + 2 * image[x + 1][y] - 1 * image[x + 1][y + 1]);
+			S3L3 = (-1 * image[x - 1][y - 1] - 2 * image[x - 1][y] - 1 * image[x + 1][y] + 2 * image[x][y - 1] + 4 * image[x][y] + 2 * image[x][y + 1] - 1 * image[x + 1][y - 1] - 2 * image[x + 1][y] - 1 * image[x + 1][y + 1]);
+			S3E3 = (-1 * image[x - 1][y - 1] + 0 * image[x - 1][y] - 1 * image[x + 1][y] - 2 * image[x][y - 1] + 0 * image[x][y] - 2 * image[x][y + 1] - 1 * image[x + 1][y - 1] + 0 * image[x + 1][y] - 1 * image[x + 1][y + 1]) / 8;
+			S3S3 = (1 * image[x - 1][y - 1] - 2 * image[x - 1][y] + 1 * image[x + 1][y] - 2 * image[x][y - 1] + 4 * image[x][y] - 2 * image[x][y + 1] + 1 * image[x + 1][y - 1] - 2 * image[x + 1][y] + 1 * image[x + 1][y + 1]);
+
+
+			ergebnis = sqrt((L3L3*L3L3) + (L3E3* L3E3) + (L3S3*L3S3) + (E3L3*E3L3) + (E3E3*E3E3) + (E3S3* E3S3) + (S3L3*S3L3) + (S3E3* S3E3) + (S3S3* S3S3));
+			if (int(ergebnis) > 255)
+				image_new[x][y] = 255;
+			else 
+				image_new[x][y] = int(ergebnis);
+		}
+	}
+}
+
+void pascalschesDreieck(int n, float faktor, int dreieck[10])
+{
+	
+	
+	
+	
+	
+	/*
+	for (int i = 0; i < 9; i++)
+	{
+		dreieck[i] = 0;
+	}//*/
+
+
+}
+
+unsigned long long fak(unsigned n)
+{
+	unsigned long long result = 1;
+	unsigned i = 1;
+
+	for (; i <= n; ++i)
+		result *= i;
+	return result;
+}
+
+unsigned binominal(unsigned n, unsigned k)
+{
+	return fak(n) / (fak(k) * fak(n - k));
+}
+
+/*void DOG(int n)
+{
+	float faktor = 0.0;
+	int dreieck[10];
+	pascalschesDreieck(n, faktor, dreieck);
+
+	if ((n % 2) != 1)
+		printf("%i", n / 2);
+	else
+		printf("%i", n / 2 + 1);
+	/*
+	for (int i = 0; i < n; i++)
+	{
+		printf("%i ", dreieck[i]);
+	}
+	printf("\n");
+	getchar();
+}//*/
+
+/*void DOG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int n)
+{
+	int ergebnis = 0;
+	int bin[2][9] = {1,6,15,20,15,6,1,0,0,
+					 1,8,28,56,70,56,28,8,1};
+
+	set_image(image_new,127);
+	switch (n)
+	{
+	case 6: //n=6 ->  1 6 15 20 15 6 1
+		for (int x = 3; x < MAXXDIM - 3; x++)
+			for (int y = 3; y < MAXYDIM - 3; y++)
+			{
+				ergebnis = 0;
+				for (int i = 0; i < 7; i++)
+				{
+					for (int j = 0; j < 7; j++)
+					{
+						ergebnis += image[x - (3 + i)][y - (3 + j)] * bin[0][i] * bin[0][j];
+					}
+				}
+				ergebnis = ergebnis / 4096;
+				image_new[x][y] = ergebnis;
+			}
+
+	break;
+	case 8: //n=8 -> 1 8 28 56 70 56 28 8 1
+		for (int x = 5; x < MAXXDIM - 5; x++)
+			for (int y = 5; y < MAXYDIM - 5; y++)
+			{
+				ergebnis = 0;
+				for (int i = 0; i < 9; i++)
+				{
+					for (int j = 0; j < 9; j++)
+					{
+						ergebnis += image[x - (5 + i)][y - (5 + j)] * bin[1][i] * bin[1][j];
+					}
+				}
+				image_new[x][y] = ergebnis / 65536;
+			}
+	break;
+
+	default:
+		break;
+	}
+}//*/
+
+void Pasc_Dreieck(int scale, int Matrix[MAXROW][MAXROW]) {
+	int N1[MAXROW] = { 0 };
+	int N2[MAXROW] = { 0 };
+	int Pasc[MAXROW] = { 0 };
+
+	for (int n = 1; n <= scale + 1; n++) {
+
+		for (int k = 0; k < n; k++) {
+			if (k == 0 || k == n - 1) {
+				N1[k] = 1;
+			}
+			else {
+				N1[k] = N2[k - 1] + N2[k];
+			}
+		}
+		memcpy(N2, N1, sizeof(N1));
+
+	}
+	memcpy(Pasc, N1, sizeof(N1));
+	for (int x = 0; x < scale + 1; x++) {
+		for (int y = 0; y < scale + 1; y++) {
+			Matrix[x][y] = Pasc[x] * Pasc[y];
+		}
+	}
+
+}
+
+void DoG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int scale) {
+	int Matrix1[MAXROW][MAXROW];
+	int Matrix2[MAXROW][MAXROW];
+	double verteilung1, verteilung2 = 0;
+	double factor1, factor2;
+
+	Pasc_Dreieck(scale, Matrix1);
+	Pasc_Dreieck(scale - 2, Matrix2);
+
+	factor1 = pow(2, scale)*pow(2, scale);
+	factor2 = pow(2, scale - 2)*pow(2, scale - 2);
+
+	for (int x = (scale / 2); x < MAXXDIM - (scale / 2); x++)
+		for (int y = (scale / 2); y < MAXYDIM - (scale / 2); y++)
+		{
+
+			for (int x1 = 0; x1 < scale + 1; x1++)
+				for (int y1 = 0; y1 < scale + 1; y1++)
+					verteilung1 += (image[x - (scale / 2) + x1][y - (scale / 2) + y1] * Matrix1[x1][y1]);
+
+			for (int x2 = 0; x2 < scale - 1; x2++)
+				for (int y2 = 0; y2 < scale - 1; y2++)
+					verteilung2 += (image[x - ((scale - 2) / 2) + x2][y - ((scale - 2) / 2) + y2] * Matrix2[x2][y2]);
+
+			if ((1.0 / factor1 * verteilung1) - (1.0 / factor2 * verteilung2) > 255)
+				image_new[x][y] = 255;
+			else
+				image_new[x][y] = (1.0 / factor1 * verteilung1) - (1.0 / factor2 * verteilung2);
+
+			verteilung1 = 0;
+			verteilung2 = 0;
+		}
+}

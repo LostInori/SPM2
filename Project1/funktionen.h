@@ -1,6 +1,8 @@
 #include "image-io.h"
 #include <math.h>
 
+#define MAXROW	100
+
 #pragma once
 int readImage();
 void writeImage(int geladen);
@@ -38,3 +40,10 @@ typ:	1: Medianfilter 3x3
 */
 //void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ);
 void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroeﬂe);
+
+/**
+Laws Filter
+*/
+void lawsfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
+
+void DoG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int scale);

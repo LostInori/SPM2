@@ -18,6 +18,8 @@ void menu()
 	printf("m) Kanten dedektion\n");
 	printf("n) Mittelwert\n");
 	printf("o) Medianfilter\n");
+	printf("p) Laws Filter\n");
+	printf("q) DOG-Operator\n");
 	printf("x) Schliessen\n");
 }
 
