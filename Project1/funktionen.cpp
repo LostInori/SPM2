@@ -750,7 +750,8 @@ void Pasc_Dreieck(int scale, int Matrix[MAXROW][MAXROW]) {
 void DoG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int scale) {
 	int Matrix1[MAXROW][MAXROW];
 	int Matrix2[MAXROW][MAXROW];
-	double verteilung1, verteilung2 = 0;
+	double verteilung1 = 0;
+	double verteilung2 = 0;
 	double factor1, factor2;
 
 	Pasc_Dreieck(scale, Matrix1);
