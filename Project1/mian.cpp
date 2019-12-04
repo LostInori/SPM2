@@ -163,6 +163,12 @@ int main()
 				getchar();
 			}
 			break;
+		case 'R':
+			printf("Toleranz: ");
+			scanf("%i", &anzahl);
+			blobColoring(bild, ausgabebild, anzahl);
+			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+			break;
 		default:
 			break;
 		}

@@ -20,6 +20,7 @@ void menu()
 	printf("o) Medianfilter\n");
 	printf("p) Laws Filter\n");
 	printf("q) DOG-Operator\n");
+	printf("r) BLOB-Coloring\n");
 	printf("x) Schliessen\n");
 }
 

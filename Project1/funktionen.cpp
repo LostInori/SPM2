@@ -459,47 +459,6 @@ void derivation(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[M
 	}
 }
 
-/*
-typ:	1: Mittelwert 3x3
-		2: Mittelwert 7x7
-gewichtung: Gewichtungsfaktor für Mittelpunkt
-*/
-/*void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ, unsigned int gewichtung)
-{
-	int mittelwert = 0;
-
-	set_image(image_new, 127);
-
-	switch (typ)
-	{
-	case 1:
-		for (int x = 1; x < MAXXDIM-1; x++)
-			for (int y = 1; y < MAXYDIM-1; y++)
-			{
-				mittelwert = 0;
-				for (int n = 0; n < 3; n++)
-					for (int i = 0; i < 3; i++)
-						mittelwert += image[x-n-1][y-i-1];
-				mittelwert += image[x][y] * (gewichtung - 1);
-				image_new[x][y] = mittelwert / 9;
-			}
-	break;
-	case 2:
-		for (int x = 3; x < MAXXDIM - 3; x++)
-			for (int y = 3; y < MAXYDIM - 3; y++)
-			{
-				mittelwert = 0;
-				for (int n = 0; n < 7; n++)
-					for (int i = 0; i < 7; i++)
-						mittelwert += image[x - n - 1][y - i - 1];
-				mittelwert += image[x][y] * (gewichtung - 1);
-				image_new[x][y] = mittelwert / 49;
-			}
-	break;
-	default:
-		break;
-	}
-}//*/
 
 void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroese, unsigned int gewichtung)
 {
@@ -521,55 +480,6 @@ void mittelwertfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image
 		}
 }
 
-/*
-typ:	1: Medianfilter 3x3
-		2: Medianfilter 9x9
-*/
-/*void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int typ)
-{
-	int werte[81];
-	int cnt_werte = 0;
-
-	set_image(image_new, 127);
-
-	switch (typ)
-	{
-	case 1: //Medianfilter 3x3
-		for (int x = 1; x < MAXXDIM - 1; x++)
-			for (int y = 1; y < MAXYDIM - 1; y++)
-			{
-				cnt_werte = 0;
-				for (int n = 0; n < 3; n++)
-					for (int i = 0; i < 3; i++)
-					{
-						werte[cnt_werte] = image[x - n - 1][y - i - 1];
-						cnt_werte++;
-					}
-				bubbleSort(werte, cnt_werte);
-				image_new[x][y] = werte[4];
-			}
-
-	break;
-	case 2: //Medianfilter 9x9
-		for (int x = 4; x < MAXXDIM - 4; x++)
-			for (int y = 4; y < MAXYDIM - 4; y++)
-			{
-				cnt_werte = 0;
-				for (int n = 0; n < 9; n++)
-					for (int i = 0; i < 9; i++)
-					{
-						werte[cnt_werte] = image[x - n - 1][y - i - 1];
-						cnt_werte++;
-					}
-				bubbleSort(werte, cnt_werte);
-				image_new[x][y] = werte[40];
-			}
-	break;
-	default:
-		break;
-	}
-
-}//*/
 
 void medianfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], unsigned int filtergroese)
 {
@@ -623,22 +533,6 @@ void lawsfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[M
 	}
 }
 
-void pascalschesDreieck(int n, float faktor, int dreieck[10])
-{
-	
-	
-	
-	
-	
-	/*
-	for (int i = 0; i < 9; i++)
-	{
-		dreieck[i] = 0;
-	}//*/
-
-
-}
-
 unsigned long long fak(unsigned n)
 {
 	unsigned long long result = 1;
@@ -653,72 +547,6 @@ unsigned binominal(unsigned n, unsigned k)
 {
 	return fak(n) / (fak(k) * fak(n - k));
 }
-
-/*void DOG(int n)
-{
-	float faktor = 0.0;
-	int dreieck[10];
-	pascalschesDreieck(n, faktor, dreieck);
-
-	if ((n % 2) != 1)
-		printf("%i", n / 2);
-	else
-		printf("%i", n / 2 + 1);
-	/*
-	for (int i = 0; i < n; i++)
-	{
-		printf("%i ", dreieck[i]);
-	}
-	printf("\n");
-	getchar();
-}//*/
-
-/*void DOG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int n)
-{
-	int ergebnis = 0;
-	int bin[2][9] = {1,6,15,20,15,6,1,0,0,
-					 1,8,28,56,70,56,28,8,1};
-
-	set_image(image_new,127);
-	switch (n)
-	{
-	case 6: //n=6 ->  1 6 15 20 15 6 1
-		for (int x = 3; x < MAXXDIM - 3; x++)
-			for (int y = 3; y < MAXYDIM - 3; y++)
-			{
-				ergebnis = 0;
-				for (int i = 0; i < 7; i++)
-				{
-					for (int j = 0; j < 7; j++)
-					{
-						ergebnis += image[x - (3 + i)][y - (3 + j)] * bin[0][i] * bin[0][j];
-					}
-				}
-				ergebnis = ergebnis / 4096;
-				image_new[x][y] = ergebnis;
-			}
-
-	break;
-	case 8: //n=8 -> 1 8 28 56 70 56 28 8 1
-		for (int x = 5; x < MAXXDIM - 5; x++)
-			for (int y = 5; y < MAXYDIM - 5; y++)
-			{
-				ergebnis = 0;
-				for (int i = 0; i < 9; i++)
-				{
-					for (int j = 0; j < 9; j++)
-					{
-						ergebnis += image[x - (5 + i)][y - (5 + j)] * bin[1][i] * bin[1][j];
-					}
-				}
-				image_new[x][y] = ergebnis / 65536;
-			}
-	break;
-
-	default:
-		break;
-	}
-}//*/
 
 void Pasc_Dreieck(int scale, int Matrix[MAXROW][MAXROW]) {
 	int N1[MAXROW] = { 0 };
@@ -780,4 +608,75 @@ void DoG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM]
 			verteilung1 = 0;
 			verteilung2 = 0;
 		}
+}
+
+void blobColoring(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int toleranz)
+{
+	emptyImage(image_new);
+	int counter = 1;
+	int x, y = 0;
+
+	image_new[1][1] = counter;
+	for (int x = 1; x < MAXXDIM; x++)
+		for (int y = 1; y < MAXYDIM; y++)
+			if (abs(image[x][y] - image[x - 1][y]) < toleranz)//gleich dem oberen Wert
+			{
+				if (image_new[x - 1][y] != 0)
+					image_new[x][y] = image_new[x - 1][y];
+				else
+					image_new[x][y] = counter;
+
+				if (abs(image[x][y] - image[x][y - 1]) < toleranz)
+				{//gleich beide
+					if (image_new[x - 1][y] == image_new[x][y - 1])
+						if (image_new[x - 1][y] != 0)
+							image_new[x][y] = image_new[x - 1][y];
+						else
+							image_new[x][y] = counter;
+					else //zwei Flächen verbinden
+						if (image_new[x - 1][y] != 0)
+						{
+							image_new[x][y] = image_new[x - 1][y];
+
+							int p = image_new[x][y - 1];
+
+							for (int g = x - 1; g >= 0; g--)
+								for (int h = y; h >= 0; h--)
+									if (image_new[g][h] == p)
+										image_new[g][h] = image_new[x][y - 1];
+						}
+						else
+							image_new[x][y] = counter;
+				}
+			}
+			else //ungleich oberer Wert
+				if (abs(image[x][y] - image[x][y - 1]) < toleranz) // gleich dem unteren Wert
+					if (image_new[x][y - 1] != 0)
+						image_new[x][y] = image_new[x][y - 1];
+					else
+						image_new[x][y] = counter;
+				else
+				{
+					counter++;
+					image_new[x][y] = counter;
+				}
+
+	for (int k = 1; k <= counter; k++)
+	{
+		int m = 0;
+		int a = 0;
+
+		for (int x = 1; x < MAXXDIM - 1; x++)
+			for (int y = 1; y < MAXYDIM - 1; y++)
+				if (image_new[x][y] == k)
+				{
+					a++;
+					m += image[x][y];
+				}
+
+		for (int x = 1; x < MAXXDIM - 1; x++)
+			for (int y = 1; y < MAXYDIM - 1; y++)
+				if (image_new[x][y] == k)
+					image_new[x][y] = (int)((double)m / (double)a);
+	}
 }
