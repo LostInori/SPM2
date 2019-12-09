@@ -21,6 +21,7 @@ void menu()
 	printf("p) Laws Filter\n");
 	printf("q) DOG-Operator\n");
 	printf("r) BLOB-Coloring\n");
+	printf("s) Cooccurrence-Matrix\n");
 	printf("x) Schliessen\n");
 }
 

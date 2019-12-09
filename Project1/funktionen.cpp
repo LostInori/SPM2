@@ -680,3 +680,27 @@ void blobColoring(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new
 					image_new[x][y] = (int)((double)m / (double)a);
 	}
 }
+
+void CooccurrenceMatrix(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
+{
+	int matrix[MAXXDIM][MAXYDIM] = { 0 };
+	int MaxVal = 0;
+
+	emptyImage(image_new);
+
+		for (int x = 0; x < MAXXDIM - 1; x++)
+			for (int y = 0; y < MAXYDIM - 1; y++)
+				for (int i = 0; i < 256; i++)
+					for (int j = 0; j < 256; j++)
+						if (image[x][y] == i && image[x][y + 1] == j)
+							matrix[i][j]++;
+
+		for (int x = 0; x < 256; x++)
+			for (int y = 0; y < 256; y++)
+				if (matrix[x][y] > MaxVal)
+					MaxVal = matrix[x][y];
+
+		for (int x = 0; x < MAXXDIM; x++)
+			for (int y = 0; y < MAXYDIM; y++)
+				image_new[x][y] = 256-(int)(256.0 / (float)MaxVal*matrix[x][y]);
+}

@@ -169,6 +169,10 @@ int main()
 			blobColoring(bild, ausgabebild, anzahl);
 			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
 			break;
+		case 'S':
+			CooccurrenceMatrix(bild, ausgabebild);
+			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
+			break;
 		default:
 			break;
 		}

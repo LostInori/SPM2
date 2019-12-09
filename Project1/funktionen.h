@@ -49,3 +49,5 @@ void lawsfilter(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[M
 void DoG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int scale);
 
 void blobColoring(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int toleranz);
+
+void CooccurrenceMatrix(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
