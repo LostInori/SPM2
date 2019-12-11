@@ -50,4 +50,4 @@ void DoG(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM]
 
 void blobColoring(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM], int toleranz);
 
-void CooccurrenceMatrix(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);
+unsigned long long CooccurrenceMatrix(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM]);

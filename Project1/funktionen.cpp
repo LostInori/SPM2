@@ -681,26 +681,36 @@ void blobColoring(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new
 	}
 }
 
-void CooccurrenceMatrix(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
+unsigned long long CooccurrenceMatrix(unsigned char image[MAXXDIM][MAXYDIM], unsigned char image_new[MAXXDIM][MAXYDIM])
 {
 	int matrix[MAXXDIM][MAXYDIM] = { 0 };
 	int MaxVal = 0;
+	unsigned long long int ASM = 0;
 
-	emptyImage(image_new);
+	set_image(image_new, 255);
 
-		for (int x = 0; x < MAXXDIM - 1; x++)
-			for (int y = 0; y < MAXYDIM - 1; y++)
-				for (int i = 0; i < 256; i++)
-					for (int j = 0; j < 256; j++)
-						if (image[x][y] == i && image[x][y + 1] == j)
-							matrix[i][j]++;
+		
+	for (int x = 1; x < MAXXDIM - 1; x++)
+		for (int y = 1; y < MAXYDIM - 1; y++)
+		{
+			matrix[image[x][y]][image[x][y + 1]]++;
+			matrix[image[x][y]][image[x - 1][y + 1]]++;
+			matrix[image[x][y]][image[x - 1][y]]++;
+			matrix[image[x][y]][image[x - 1][y - 1]]++;
+		}
 
 		for (int x = 0; x < 256; x++)
 			for (int y = 0; y < 256; y++)
+			{
+				ASM += pow(matrix[x][y], 2.0);
 				if (matrix[x][y] > MaxVal)
 					MaxVal = matrix[x][y];
+			}
 
 		for (int x = 0; x < MAXXDIM; x++)
 			for (int y = 0; y < MAXYDIM; y++)
-				image_new[x][y] = 256-(int)(256.0 / (float)MaxVal*matrix[x][y]);
+				image_new[x][y] = 255-((int)(255.0 / (float)MaxVal*matrix[x][y]));
+
+		return ASM/16;
 }
+

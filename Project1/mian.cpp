@@ -170,7 +170,7 @@ int main()
 			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
 			break;
 		case 'S':
-			CooccurrenceMatrix(bild, ausgabebild);
+			printf("ASM: %llu\n", CooccurrenceMatrix(bild, ausgabebild));
 			writeImage_ppm(ausgabebild, MAXXDIM, MAXYDIM);
 			break;
 		default:
